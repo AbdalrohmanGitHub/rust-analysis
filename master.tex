@@ -1,0 +1,157 @@
+
+%custom commands for folder structure - please use :)
+\newcommand{\meta}{meta}
+\newcommand{\ana}{chapters/analysis}
+\newcommand{\conc}{chapters/conclusion}
+\newcommand{\intro}{chapters/introduction}
+\newcommand{\fund}{chapters/fundamentals}
+\newcommand{\conf}{config}
+\newcommand{\appx}{appendix}
+\newcommand{\bibl}{bibliography}
+\newcommand{\imagedir}{img}
+
+\documentclass[fontsize=12pt,BCOR=5mm,DIV=12,
+               parskip=half,
+               listof=entryprefix,paper=a4,toc=bibliography,toc=listof,pointlessnumbers
+               %,headinclude=on,footinclude=off,
+               %,plainheadtopline=false,plainheadsepline=false,plainfootsepline=false,plainfootbotline=false
+               ]{scrreprt}
+               
+\makeindex
+
+% (!!) Elementare Pakete, Konfigurationen und Definitionen werden geladen
+\input{\conf/config}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% @stud
+%
+%	SCHRIFTART (Schrift mit oder ohne Serifen im gesamten Text) 
+%
+% mit Serifen
+%\addtokomafont{disposition}{\rmfamily}
+%\renewcommand*{\familydefault}{\rmdefault}
+%
+% ohne Serifen (default)
+%\addtokomafont{disposition}{\sffamily}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% @stud
+%
+% PERSÖNLICHE ANGABEN (BITTE VOLLSTÄNDIG EINGEBEN zwischen den Klammern: {...})
+%
+\ArtDerArbeit{Projekt} % "Bachelor" oder "Projekt" wählen
+\TitelDerArbeit{Iwas mit Rust}
+\AutorDerArbeit{Max Stubenbord,  Martin Pretz, Abdalroman Alsalkhadi}
+\Kurs{TINF18AI1}
+\Studienrichtung{angewandte Informatik}
+\Matrikelnummer{5379506, ..., ...}
+\Studiengangsleiter{Prof. Dr. Holger Hofmann}
+\Bearbeitungszeitraum{dd.mm.yyyy -- DD.MM.YYYY}
+\Abgabedatum{dd.mm.yyyy}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% @stud
+%
+%	BIBLIOGRAPHY (@stud: Bibliographie-Stil wählen - Position und Indizierung)
+%
+% Auswahl zwischen: IEEE Style, ALPHABETIC Style, HARVARD Style, AUTHOR-YEAR Style 
+%
+% (oder eigenen zulässigen Stil wählen) 
+%
+
+% Position des Zitats
+%
+
+
+
+
+\newcommand{\position}{inline} 
+%\newcommand{\position}{footnote}
+
+% Indizierung des Zitats
+%
+% 1) NUMERIC Style - e. g. [12]
+\newcommand{\indextype}{numeric} 
+%
+% 2) ALPHABETIC Style - e. g. [AB12]
+%\newcommand{\indextype}{alphabetic} 
+%
+% 3) IEEE Style - numeric kind of style 
+%\newcommand{\indextype}{ieee} 
+%
+% 4) HARVARD Style 
+%\newcommand{\indextype}{apa} 
+%
+% 5) CHICAGO Style 
+%\newcommand{\indextype}{authoryear}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand*{\familydefault}{\sfdefault}
+
+\usepackage[backend=biber, autocite=\position, style=\indextype]{biblatex} 	
+
+\settingBibFootnoteCite
+
+\newcommand{\abs}{\par\vskip 0.2cm\goodbreak\noindent}
+\newcommand{\nl}{\par\noindent}
+\newcommand{\mcl}[1]{\mathcal{#1}}
+\newcommand{\nowrite}[1]{}
+\newcommand{\NN}{{\mathbb N}}
+
+
+\makeindex
+
+\begin{document}
+
+\setTitlepage
+
+
+\input{\meta/ewerkl}
+
+\input{\meta/nondisclosurenotice}
+
+\input{\meta/acknowledge}
+
+\input{\intro/abstract}
+
+\settingLists
+
+\input{\meta/acronyms}
+
+
+\initializeText
+\onehalfspacing
+
+
+\input{\intro/introduction}
+
+
+
+
+\input{\conc/conclusion}
+
+
+\initializeAppendix
+
+\input{\appx/appendix1}
+\input{\appx/appendix2}
+
+
+\singlespacing
+
+
+\initializeBibliography
+
+
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+\end{document}
