@@ -1,10 +1,20 @@
+\newenvironment{code}{\captionsetup{type=listing}}{}
 \chapter{Design}
-Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt. \autocite{rust-wiki}
+Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt. 
+
 \section{Syntax}
-Rust ist syntaktische ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. [1]
-Im Endeffekt bedeutet dies, dass der Code aus Blöcken besteht, welche mit geschweiften Klammern begonnen und beendet werden. Dies gilt jedoch nicht für die Bedingungen von Schleifen wie zum Beispiel while oder for sehr wohl aber für deren Schleifeninhalt. Die einzelnen Anweisungen werden dabei stets mit einem Semikolon voneinander getrennt.  [1] [2] [3]
-Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden daher intern als "safe" gelistet. Allerdings bietet Rust auch die Möglichkeit für den Entwickler sich von der Sicherheit wegzubewegen und bewusst Code zu schreiben, welcher nach Rust-Kriterien als unsicher klassifiziert wird. Dafür muss allerdings der entsprechende Codeabschnitt im Code explizit in einem Rahmen mit dem Schlüsselwort "unsafe" angegeben werden. [1] [2] [3]
-\newpage
+Rust ist syntaktische ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. \autocite{rust-the-book}
+
+Im Endeffekt bedeutet dies, dass der Code aus Blöcken besteht, welche mit geschweiften Klammern begonnen und beendet werden. Dies gilt jedoch nicht für die Bedingungen von Schleifen wie zum Beispiel \textit{while} oder \textit{for} sehr wohl aber für deren Schleifeninhalt. Die einzelnen Anweisungen werden dabei stets mit einem Semikolon voneinander getrennt.  \autocite{rust-the-book}\autocite{rust-by-example}\autocite{rust-wiki}
+
+Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden daher intern als "safe" gelistet. Allerdings bietet Rust auch die Möglichkeit für den Entwickler sich von der Sicherheit wegzubewegen und bewusst Code zu schreiben, welcher nach Rust-Kriterien als unsicher klassifiziert wird. Dafür muss allerdings der entsprechende Codeabschnitt im Code explizit in einem Rahmen mit dem Schlüsselwort "unsafe" angegeben werden.\autocite{rust-the-book}\autocite{rust-by-example}\autocite{rust-wiki}
+
+\section{Typsystem}
+\subsection{Benutzerdefinierte Typen}
+Eine Besonderheit von Rust ist, dass alle benutzerdefinierten Datentypen als Struct oder als Enum implementiert werden können. Dies ist zwar nichts neues und kommt bereits in ähnlicher Form in der Programmiersprache GO zur Anwendung, allerdings unterschiedet sich die konkrete Vorgehensweise in Rust von anderen Programmiersprachen.
+
+In einem Struct können die einzelnen Attribute eines Datentyps definiert werden, wobei auch Typen und Standardwerte für die Attribute angegeben werden können. \autocite{rust-the-book}\autocite{rust-by-example} In Quelltext \ref{lst:struct} wird exemplarisch ein einfaches Struct dargestellt welches den Datentypen Viereck erzeugt. 
+
 \begin{minted}[linenos, fontsize=\small]{rust}
     fn main() {
         struct Viereck {
@@ -18,11 +28,51 @@ Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden d
         }
     }
 \end{minted}
-\begin{lstlisting}[caption={Einfaches Struct und zugeh"orige Methode \\Quelle: \autocite{rust-wiki}}, label={lst:struct}]
+\begin{lstlisting}[caption={Einfaches Struct und zugeh"orige Methode \\Quelle: \autocite{rust-the-book}}, label={lst:struct}]
 \end{lstlisting}
 
-\section{Typen}
+Methoden für benutzerdefinierte Datentypen können über das Schlüsselwort \textit{impl} erstellt werden. Dabei handelt es sich letzten Endes um einen Art Rahmen für einen Datentypen eine Funktion beinhaltet. Dies wird ebenfalls in Quelltext \ref{lst:struct} exemplarisch dargestellt. 
 
-\section{Memory}
+Damit bietet Rust ein Konzept welches vergleichbar mit dem Konzept von Klassen in Objektorientierten Sprachen wie zum Beispiel Java oder Pyhton ist. Dabei verbindet Rust die Flexibilitäten der klassischen Objektorientierung mit der Sicherheit von nicht-objektorientierten Programmiersprachen wie zum Beispiel C.
+
+\subsection{Generische Typen}
+
+Generische Typen stellen eine einfache aber dennoch bedeutsame weitere Besonderheit im Typsystem von Rust dar. Dabei handelt es sich um ein Konzept welches es zum Beispiel erlaubt, dass der Typ eines Übergabeparameters einer Funktion nicht etwas explizit in der Implementierung der Funktion definiert werden muss. Stattdessen wird die Typisierung einen Eingabeparameters an der Stelle vorgenommen, an der die Funktion im Code aufgerufen wird. \autocite{rust-the-book}\autocite{rust-by-example} Dies ermöglicht es einer Funktion nahezu alle möglichen beliebigen Datentypen übergeben zu bekommen und ist vergleichbar mit der Eigenschaft der Polymorphie in objektorientierten Sprachen. 
 
 \section{Ownership}
+
+Das herausragendste Merkmal der Programmiersprache Rust ist das Konzept Ownership zur Gewährleistung der Speichersicherheit. Aber worum handelt es sich konkret?
+
+Im Gegensatz zu Programmiersprachen wie zum Beispiel Java oder Python existiert in Rust kein Garbage Collector welcher Werte aus dem Arbeitsspeicher eines Computers entfernt, falls diese nicht länger benötigt werden. Stattdessen hat jeder Wert einen sogenannten Besitzer (Owner), welcher festlegt wie lange der Wert im Arbeitsspeicher verbleibt. Vereinfacht gesagt handelt es sich bei einem Besitzer um eine Variable. Dabei wird ein Wert aus dem Arbeitsspeicher entfernt, sobald dieser den Geltungsbereich des Besitzers verlässt. Das bedeutet, dass sobald eine bestimmte Variable zum letzten Mal genutzt wird, Rust intern den Wert zur Löschung aus dem Speicher markiert. Mit diesem Konzept können verschiedene Fehler im Zusammenhang mit Pointern, aber auch mit parallelen Änderungen desselben Wertes ausgeschlossen werden. \autocite{rust-the-book}\autocite{rust-by-example} Deutlicher wird dieses Konzept anhand eines Beispiels, wie es in Quelltext \ref{lst:wrong-code} dargestellt ist
+
+\begin{minted}[linenos, fontsize=\small]{rust}
+    fn main() {
+        let s1 = String::from("hello");
+        let s2 = s1;
+        println!("s1 = {}, s2 = {}", s1, s2);
+    }
+\end{minted}
+\begin{lstlisting}[caption={Fehlerhafte Zuweisung von Werten \\Quelle: \autocite{rust-ownership}}, label={lst:wrong-code}]
+\end{lstlisting}
+
+Bei diesem Beispiel wird zunächst der variablen \textit{s1} der Wert \textit{hello} zugewiesen und anschließend wird einer zweiten Variablen \textit{s2} die Variable \textit{s1} zugewiesen. In Rust würde dieser Code nicht kompilieren da es aus zwei Gründen problematisch ist, da der Compiler nicht weiß was mit dieser Zuweisung beabsichtigt wird. \autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
+
+Zum einen könnte die Zuweisung bedeuten, dass der Wert der Variablen \textit{s1} der Variablen \textit{s2} zugewiesen werden soll, sodass also beide Variablen den Wert \textit{hello} beinhalten. Das bedeutet, dass \textit{s2} eine Kopie von \textit{s1} wäre und einen eigenen Speicherbereich hätte, sodass der String \textit{hello} nach der Zuweisung zwei Mal im Speicher stehen würde. Zum anderen könnte die Zuweisung bedeuten, dass \textit{s2} auf dieselbe Adresse im Speicher verweist wodurch \textit{s1} und \textit{s2} nun auf denselben Wert im Speicher zeigen würden.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
+
+Für dieses Problem stehen zwei Lösungen zur Verfügung. Sofern \textit{s2} als exakte Kopie, mit eigenem Speicherbereich, des Wertes der Variablen \textit{s1} angelegt werden soll, so kann dies mit der folgenden Zuweisung erfolgen: \textit{let s2 = s1.clone()}.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
+
+Wenn allerding \textit{s2} auf denselben Speicherbereich wie \textit{s1} zeigen soll, so ist dies mit Ownership möglich. Dabei muss allerdings beachtet werden, dass ein Wert nur einen Owner haben kann, was im Beispiel in Quelltext \ref{lst:wrong-code} bedeutet, dass \textit{s1} Owner des Wertes \textit{hello} ist. Die korrekte Zuweisung würde wie in Quelltext \ref{lst:correct-code} dargestellt erfolgen. Dabei wird der Variablen \textit{s1} der Wert \textit{hello} als veränderbar (mutable) zugewiesen. Anschließend wird \textit{s2} als veränderbare Referenz von \textit{s1} deklariert, was in Rust \textit{"Borrow"} (Borgen/Leihen) genannt wird. Die Idee dahinter ist, dass sich \textit{s2} den Wert von \textit{s1} für die Bearbeitung ausleiht und anschließend wieder freigibt. Konkret kann \textit{s2} Veränderungen an dem referenzierten Wert mit der Funktion \textit{s2.push()} vornehmen.
+
+\begin{minted}[linenos, fontsize=\small]{rust}
+    fn main() {
+        let mut s1 = String::from("hello");
+        let s2 = &mut s1;
+        s2.push("!");
+        println!("s2 = {}", s2);
+        println!("s1 = {}", s1);
+    }
+\end{minted}
+\begin{lstlisting}[caption={Korrekte Zuweisung von Werten \\Quelle: \autocite{rust-ownership}}, label={lst:correct-code}]
+\end{lstlisting}
+
+Anzumerken ist allerdings, dass über \textit{s1} keine Änderungen an dem Wert vorgenommen werden können oder der Wert genutzt werden kann, solange \textit{s2} sich diesen Wert ausgeliehen hat. Damit \textit{s1} wieder mit dem Wert arbeiten kann, kann \textit{s2} z.B. explizit die Anweisung \textit{s2.drop()} nutzen um den Wert wieder freizugeben.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
