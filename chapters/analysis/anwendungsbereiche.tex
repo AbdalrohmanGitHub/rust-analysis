@@ -23,6 +23,8 @@ Hier ein kleines Codebeispiel:
 }
 
  \end{minted}
+\begin{lstlisting}[caption={Optionale Typisierung}, label={lst:optionaltypes}]
+ \end{lstlisting}
 
 Für viele wird Rust wie schon  in der Einleitung erw"ahnt als Alternative zu den Programmiersprachen wie \texttt{C} oder \texttt{C++} angesehen. Der größte Vorteil, den Rust im Vergleich zu diesen Sprachen bieten kann, ist der \textbf{Borrow-Checker}.\\
 Dies ist der Teil des Compilers, welcher dafür verantwortlich ist, dass der Lebenszyklus der Referenzen nicht dem der darauf verweisenden Daten "uberschreitet.\\
@@ -33,6 +35,8 @@ Anhand dieses Beispiels wird gezeigt, wie Iteratoren verwendet werden können, u
 \begin{minted}[fontsize=\small]{rust}
     let squares: Vec<_> = (0..10).map(|i| i * i).collect();
 \end{minted}
+\begin{lstlisting}[caption={Abstrakte Iteration}, label={lst:abstract}]
+\end{lstlisting}
 
 Systemprogrammiersprachen haben die implizite Erwartung, dass es sie für immer geben wird. \\
 Während einige moderne Entwicklungen nicht diese Langlebigkeit erfordern, wollen viele Unternehmen, dass ihre grundlegende Code-Basis in absehbarer Zukunft immernoch nutzbar sein wird.\\

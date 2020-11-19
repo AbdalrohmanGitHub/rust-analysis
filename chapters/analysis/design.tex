@@ -1,7 +1,25 @@
-% !TEX root =  master.tex
 \chapter{Design}
-
+Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt. \autocite{rust-wiki}
 \section{Syntax}
+Rust ist syntaktische ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. [1]
+Im Endeffekt bedeutet dies, dass der Code aus Blöcken besteht, welche mit geschweiften Klammern begonnen und beendet werden. Dies gilt jedoch nicht für die Bedingungen von Schleifen wie zum Beispiel while oder for sehr wohl aber für deren Schleifeninhalt. Die einzelnen Anweisungen werden dabei stets mit einem Semikolon voneinander getrennt.  [1] [2] [3]
+Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden daher intern als "safe" gelistet. Allerdings bietet Rust auch die Möglichkeit für den Entwickler sich von der Sicherheit wegzubewegen und bewusst Code zu schreiben, welcher nach Rust-Kriterien als unsicher klassifiziert wird. Dafür muss allerdings der entsprechende Codeabschnitt im Code explizit in einem Rahmen mit dem Schlüsselwort "unsafe" angegeben werden. [1] [2] [3]
+\newpage
+\begin{minted}[linenos, fontsize=\small]{rust}
+    fn main() {
+        struct Viereck {
+            x: f32,
+            y: f32
+        }
+        impl Viereck {
+            fn flaeche(&self) -> f32 {
+                self.x * self.y
+            }
+        }
+    }
+\end{minted}
+\begin{lstlisting}[caption={Einfaches Struct und zugeh"orige Methode \\Quelle: \autocite{rust-wiki}}, label={lst:struct}]
+\end{lstlisting}
 
 \section{Typen}
 
