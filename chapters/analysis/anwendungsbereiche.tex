@@ -1,4 +1,66 @@
 \chapter{Anwendungsbereiche} % (fold)
 \label{cha:Anwendungsbereiche}
-Rust hat spezielle Anwendungsbereiche bla bla
+\section{statisch und dynamisch Typisierte Sprachen}
+Die Programmiersprache Rust ist seit vier Jahren in Folge die beliebteste Sprache von Stack Overflow, was darauf hindeutet, dass viele, die die Gelegenheit hatten Rust zu benutzen, sich in diese Sprache verliebt haben. \autocite{so-rust-loved}\\
+Ein Indikator, f"ur diese Beliebtheit ist wohl, dass Rust an jenen Stellen ansetzt, welche in anderen Sprachen Entwicklern Bauchschmerzen bringen.\\
+In den letzten Jahren wurde die Auseinandersetzung zwischen Programmierern, welche dynamische Sprachsysteme den statischen bevorzugen immer mehr zum Thema. Mit dem Aufstieg von Typescript oder dem feature des typisierten Pythons wurde die statische Typisierung wieder zum Thema in der IT-Branche.\\
+Dynamische Typisierung in gr"o"seren Codebasen frustriert Entwickler schon seit l"angerer Zeit. \\
+Statisch typisierte Sprachen ermöglichen vom Compiler überprüfte Einschränkungen der Daten und ihres Verhaltens, wodurch kognitiver Overhead und Missverständnisse verringert werden. Somit steigt auch der Anteil von statisch typisierten Projekten wieder. \\
+Dies induziert aber keinenfalls, dass alle statischen Systeme gleichwertig zu betrachten sind. Viele statisch typisierte Sprachen kommen mit einem Asterix neben dem Wort \textbf{statisch Typisiert*}.\\
+Diese Anmerkung sagt aus, dass diese Sprachen das Konzept von \textbf{NULL} unterst"utzen.
+Hierbei kann jeder Wert zwei Zust"ande besitzen: Den vom Entwickler angegebenen Wert oder eben NULL. \\
+Wie auch beispielsweise die Programmiersprache Haskell l"ost Rust dieses Problem mit einem optionalem Typ. Dabei wird vom Compiler verlangt, dass der Fall \textbf{None} vom Entwickler behandelt wird.\\
+Durch diese Implementierung der Nullverwertung werden systematisch elle gef"urchteten \textbf{Typeerrors} abgafangen und somit auch verhindert.\\
+Ein Anwendungsbeispiel in Rust hierf"ur ist eine einfache Begr"u"sung, welche schaut, ob ein Name angegeben wurde.\\
+Hier ein kleines Codebeispiel:
+\newpage
+\begin{minted}[linenos, fontsize=\small]{rust}
+    fn greet_user(name: Option<String>) {
+    match name {
+        Some(name) => println!("Hello there, {}!", name),
+        None => println!("Well howdy, stranger!"),
+    }
+}
+
+ \end{minted}
+
+Für viele wird Rust wie schon  in der Einleitung erw"ahnt als Alternative zu den Programmiersprachen wie \texttt{C} oder \texttt{C++} angesehen. Der größte Vorteil, den Rust im Vergleich zu diesen Sprachen bieten kann, ist der \textbf{Borrow-Checker}.\\
+Dies ist der Teil des Compilers, welcher dafür verantwortlich ist, dass der Lebenszyklus der Referenzen nicht dem der darauf verweisenden Daten "uberschreitet.\\
+Rust ist bestrebt, so viele kostenfreie Abstraktionen wie möglich zu haben - Abstraktionen, die genauso performant sind wie der entsprechend geschriebene Code.\\
+
+Anhand dieses Beispiels wird gezeigt, wie Iteratoren verwendet werden können, um einen Vektor zu erzeugen, der die ersten zehn Quadratzahlen enthält:
+
+\begin{minted}[fontsize=\small]{rust}
+    let squares: Vec<_> = (0..10).map(|i| i * i).collect();
+\end{minted}
+
+Systemprogrammiersprachen haben die implizite Erwartung, dass es sie für immer geben wird. \\
+Während einige moderne Entwicklungen nicht diese Langlebigkeit erfordern, wollen viele Unternehmen, dass ihre grundlegende Code-Basis in absehbarer Zukunft immernoch nutzbar sein wird.\\
+Rust ist sich dessen bewusst und hat bewusste Design-Entscheidungen im Hinblick auf Rückwärtskompatibilität und Stabilität getroffen; es ist eine Sprache, die für die \enquote{n"achsten 40 Jahre entworfen wurde}.
+
+\section{Ecosystem}
+Rust ist gr"o"ser als nur eine Sprachspezifikation und der dazugeh"orige Compiler; viele Aspekte der Erstellung und Wartung von Software werden von Rust priorisiert.\\
+Mehrere gleichzeitige Rust Toolchains können über \textbf{Rustup} \autocite{rustup} installiert und verwaltet werden. Rust-Installationen werden mit Cargo geliefert, einem Befehlszeilen-Tool zur Verwaltung von Abhängigkeiten, zur Durchführung von Tests, zur Erstellung von Dokumentation etc. .\\
+Da Abhängigkeiten, Tests und Dokumentation standardmäßig verfügbar sind, werden sie in Rust Projekten auch dementsprechend h"aufig eingesetzt. \textbf{Cratesio} \autocite{cratesio} ist die Community-Site zur gemeinsamen Nutzung und Entdeckung von Rust-Bibliotheken. Jede Bibliothek, die auf crates.io veröffentlicht wird, lässt ihre Dokumentation auf \textbf{docsrs} \autocite{docsrs} erstellen und veröffentlichen.\\
+
+Zusätzlich zu den schon vorhandenen Tools hat die Rust-Community viele weitere Tools  entwickelt.\\
+Hierzu z"ahlen Benchmarking, Fuzzing und Tests. Diese sind alle leicht zugänglich und werden in Projekten gut genutzt. Zusätzliche Compiler-Lints sind von Clippy erhältlich und automatische idiomatische Formatierung wird von rustfmt bereitgestellt.
+
+Über die technischen Aspekte hinaus hat Rust eine sehr aktive und hilfsbereite Community. Es gibt mehrere offizielle und inoffizielle Möglichkeiten, Hilfe zu erhalten:
+\begin{itemize}
+    \item  Chat \autocite{rust-discord}
+    \item Benutzerforum \autocite{rust-user-forum}
+    \item Subreddit \autocite{rust-subreddit}
+\end{itemize}
+
+\section{Anwendung}
+Rust findet neben Privatem Nutzen auch im kommerziellen Bereich eine Anwendung. Hierbei nutzen Firmen, wie \textbf{npm, tilde, Dropbox} oder \textbf{Yelp} die Sprache in verschiedenen Einsatzbereichen.\\
+Npm setzt Rust ein, um \enquote{cpu bound bottlenecks} zu umgehen.
+Ein Whitepaper indiziert den Nutzen von Rust bei npm und erl"autert hierbei warum Rust eingesetzt wurde.\\
+Im Fazit des Papers wird als einer der Gr"unde, wieso Rust benutzt wurde geschrieben: \enquote{\textit{Rust is a solution that scales and is straightforward to deploy. It keeps resource usage low
+        without the possibility of compromising memory safety. }}\autocite{rust-whitepaper-npm}
+Dabei wird noch geschrieben, dass Rust langweilig sei, dass dies aber auch das beste Kompliment sei, was eine Programmiersprache erhalten k"onnte (\enquote{\textit{npm’s first Rust program hasn't
+        caused any alerts in its year and a half
+        in production.}}) \autocite{rust-whitepaper-npm}\\
+Allerdings werden in dem Paper auch Nachteile durch den Einsatz von Rust bei npm genannt. Beispielsweise ist Rust eine junge Progarmmiersprache und dadurch hat diese noch keine Industrie-Standards f"ur Logging oder Alerting. Deshalb musste hierbei alles neu geschrieben werden, was mit viel Aufwand verbunden war.
 % chapter Anwendungsbereiche (end)

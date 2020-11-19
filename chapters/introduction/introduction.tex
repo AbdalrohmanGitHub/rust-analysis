@@ -7,9 +7,9 @@ Dieses Kapitel enthält die Einleitung mit ihren verschiedenen Abschnitten/Secti
 
 \section{Rust}
 
-Rust ist eine neue Systemprogrammiersprache, die von Mozilla entwickelt und von einer großen Open Source-Community von Mitwirkenden unterstützt wird. Sie ist die erste von der Industrie unterstützte Programmiersprache, die den seit langem bestehenden Kompromiss in der Programmiersprachenentwurf zwischen den Sicherheitsgarantien höherer Programmiersprachen (wie Java) und der Kontrolle über die Speicherverwaltung durch low-level-Programmiersprachen (wie C und C++) überwindet. Rust geht diese Herausforderung mit Hilfe eines starken, neuartigen Typsystems an, das auf den Ideen der Eigentümerschaft (Ownership) and des Ausleihen (Borrowing) basiert und die statische Mutation eines gemeinsamen Zustandes (Data Races) verbietet. Dieser Ansatz ermöglicht es, die üblichen Fallstricke der Systemprogrammierung zur Kompilierungszeit zu erkennen. 
+Rust ist eine neue Systemprogrammiersprache, die von Mozilla entwickelt und von einer großen Open Source-Community von Mitwirkenden unterstützt wird. Sie ist die erste von der Industrie unterstützte Programmiersprache, die den seit langem bestehenden Kompromiss in der Programmiersprachenentwurf zwischen den Sicherheitsgarantien höherer Programmiersprachen (wie Java) und der Kontrolle über die Speicherverwaltung durch low-level-Programmiersprachen (wie C und C++) überwindet. Rust geht diese Herausforderung mit Hilfe eines starken, neuartigen Typsystems an, das auf den Ideen der Eigentümerschaft (Ownership) and des Ausleihen (Borrowing) basiert und die statische Mutation eines gemeinsamen Zustandes (Data Races) verbietet. Dieser Ansatz ermöglicht es, die üblichen Fallstricke der Systemprogrammierung zur Kompilierungszeit zu erkennen.
 
-Das Ownership-System legt für jeden Wert eine klare Lebenszeit fest, wodurch ein Garbage Collector überflüssig wird und solide, aber flexible Schnittstellen für die Verwaltung anderer Arten von Ressourcen wie Sockets und Datei-Handles ermöglicht werden. Durch \glqq Moves\grqq{} können Werte von einem Eigentümer auf einen anderen übertragen werden, und durch Ausleihen kann ein Code einen Wert vorübergehend verwenden, ohne dass sich dies auf das Eigentum auswirkt. 
+Das Ownership-System legt für jeden Wert eine klare Lebenszeit fest, wodurch ein Garbage Collector überflüssig wird und solide, aber flexible Schnittstellen für die Verwaltung anderer Arten von Ressourcen wie Sockets und Datei-Handles ermöglicht werden. Durch \glqq Moves\grqq{} können Werte von einem Eigentümer auf einen anderen übertragen werden, und durch Ausleihen kann ein Code einen Wert vorübergehend verwenden, ohne dass sich dies auf das Eigentum auswirkt.
 Die Kontrolle über die Speicherverwaltung ist ein sehr wichtiger Aspekt für Anwendungen der systemnahen Programmierung wie Web-Browser, Betriebssysteme oder Game-Engines, bei denen Leistungs- oder Ressourcenbeschränkungen ein Hauptanliegen sind. Diese Art der Kontrolle wird von Rust unterstützt, womit die Möglichkeit gegeben wird, die Darstellung von Daten auf Byte-Ebene zu bestimmen sowie einen Zugang zum \glqq Bare Metal\grqq{} zu schaffen und die zeitliche und räumliche Nutzung von Programmen durch Low-Level-Programmiertechniken zu optimieren.
 
 Es gibt eine Reihe von Datentypen, deren Implementierungen grundlegend vom gemeinsam veränderlichen Zustand (shared mutable state) abhängen und daher nicht nach der strengen Eigentümerschaft-Disziplin von Rust typgeprüft werden können. Um solche Datentypen zu unterstützen, setzt Rust auf die vernünftige Verwendung von unsicheren Codes (engl. Unsafe Code), die in sicheren APIs gekapselt sind.
@@ -23,47 +23,3 @@ Rust ist nicht wirklich eine objektorientierte Sprache, obwohl sie einige objekt
 Rust ist für Entwickler und Projekte gedacht, bei denen nicht nur Leistung und low-level-Optimierungen wichtig sind, sondern bei denen auch eine sichere und stabile Ausführungsumgebung benötigt wird. Darüber hinaus fügt Rust eine Menge funktionaler High-Level-Programmiertechniken innerhalb der Sprache hinzu, so dass sie sich gleichzeitig wie eine Low-Level- und eine High-Level-Sprache anfühlt.
 
 
-\subsection{Beispiel Unterabschnitt: Aufbau eines \LaTeX-Dokuments}
-
-Ein \LaTeX-Dokument besteht in der Regel aus folgenden Komponenten:
-\begin{itemize}
-	\item Pr\"aambel
-	\item Titelseite
-	\item Textteil
-\end{itemize}
-
-\subsubsection{Beispiel Unterabschnitt auf zweiter Ebene: Pr\"aambel}
-In der Pr\"aambel werden global die Einstellungen f\"ur das gesamte Dokument definiert. Hierbei k\"onnen z.~B.~die Seitenr\"ander, 
-der Zeilenabstand oder auch die Sprache f\"ur die Silbentrennung festgelegt werden. In der ersten Zeile eines jeden Dokumentes wird dabei
-immer die zu verwendende Klasse festgelegt. Standardm\"aßig kann hier die Artikel-Klasse gew\"ahlt werden:
-
-\texttt{\textbackslash documentclass[12pt,titlepage]\{article\}}
-
-In den eckigen Klammern wird dabei u.a. die Standardschriftgr\"o\ss e f\"ur das gesamte Dokument festgelegt. 
-
-Au\ss erdem werden in der Pr\"aambel die f\"ur das Dokument ben\"otigten Pakete festgelegt. Gebr\"auchlich sind vor allem folgende Pakete:
-{\texttt{
-\begin{itemize}
-	\item \textbackslash usepackage[ngerman]\{babel\}
-	\item \textbackslash usepackage[latin1]\{inputenc\}
-	\item \textbackslash usepackage\{color\}
-	\item \textbackslash usepackage[a4paper]\{geometry\}
-	\item \textbackslash usepackage\{amssymb\}
-	\item \textbackslash usepackage\{amsthm\}
-	\item \textbackslash usepackage\{graphicx\}
-\end{itemize}
-}
-
-Im vorliegenden Fall werden die Pakete in der Konfigurationsdatei \texttt{config.tex} festgelegt, deren Inhalt durch 
-\texttt{\textbackslash input\{config\}} in das Hauptdokument \texttt{master.tex} inkludiert wird.
-
-\subsubsection{Beispiel Unterabschnitt auf zweiter Ebene: Titelseite}
-
-Nachdem die Dokumenten-Klasse und die zu verwendenden Pakete festgelegt worden sind,
-folgt die Titelseite. Da die Titelseite bereits Teil des eigentlichen Dokuments ist, muss ihr
-unbedingt der Befehl \texttt{\textbackslash begin\{document\}} vorausgehen. Am Ende des Dokuments sollte der Befehl
-\texttt{\textbackslash end\{document\}} gesetzt werden. Alles was nach diesem Befehl steht, wird vom Compiler nicht mehr beachtet.
-
-\subsubsection{Beispiel Unterabschnitt auf zweiter Ebene: Textteil}
-
-Der Textteil beinhaltet nun den eigentlichen Text des Dokuments.
