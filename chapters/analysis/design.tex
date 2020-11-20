@@ -1,6 +1,6 @@
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \chapter{Design}
-Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt. 
+Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt.
 
 \section{Syntax}
 Rust ist syntaktische ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. \autocite{rust-the-book}
@@ -13,7 +13,7 @@ Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden d
 \subsection{Benutzerdefinierte Typen}
 Eine Besonderheit von Rust ist, dass alle benutzerdefinierten Datentypen als Struct oder als Enum implementiert werden können. Dies ist zwar nichts neues und kommt bereits in ähnlicher Form in der Programmiersprache GO zur Anwendung, allerdings unterschiedet sich die konkrete Vorgehensweise in Rust von anderen Programmiersprachen.
 
-In einem Struct können die einzelnen Attribute eines Datentyps definiert werden, wobei auch Typen und Standardwerte für die Attribute angegeben werden können. \autocite{rust-the-book}\autocite{rust-by-example} In Quelltext \ref{lst:struct} wird exemplarisch ein einfaches Struct dargestellt welches den Datentypen Viereck erzeugt. 
+In einem Struct können die einzelnen Attribute eines Datentyps definiert werden, wobei auch Typen und Standardwerte für die Attribute angegeben werden können. \autocite{rust-the-book}\autocite{rust-by-example} In Quelltext \ref{lst:struct} wird exemplarisch ein einfaches Struct dargestellt welches den Datentypen Viereck erzeugt.
 
 \begin{minted}[linenos, fontsize=\small]{rust}
     fn main() {
@@ -31,13 +31,13 @@ In einem Struct können die einzelnen Attribute eines Datentyps definiert werden
 \begin{lstlisting}[caption={Einfaches Struct und zugeh"orige Methode \\Quelle: \autocite{rust-the-book}}, label={lst:struct}]
 \end{lstlisting}
 
-Methoden für benutzerdefinierte Datentypen können über das Schlüsselwort \textit{impl} erstellt werden. Dabei handelt es sich letzten Endes um einen Art Rahmen für einen Datentypen eine Funktion beinhaltet. Dies wird ebenfalls in Quelltext \ref{lst:struct} exemplarisch dargestellt. 
+Methoden für benutzerdefinierte Datentypen können über das Schlüsselwort \textit{impl} erstellt werden. Dabei handelt es sich letzten Endes um einen Art Rahmen für einen Datentypen eine Funktion beinhaltet. Dies wird ebenfalls in Quelltext \ref{lst:struct} exemplarisch dargestellt.
 
 Damit bietet Rust ein Konzept welches vergleichbar mit dem Konzept von Klassen in Objektorientierten Sprachen wie zum Beispiel Java oder Pyhton ist. Dabei verbindet Rust die Flexibilitäten der klassischen Objektorientierung mit der Sicherheit von nicht-objektorientierten Programmiersprachen wie zum Beispiel C.
 
 \subsection{Generische Typen}
 
-Generische Typen stellen eine einfache aber dennoch bedeutsame weitere Besonderheit im Typsystem von Rust dar. Dabei handelt es sich um ein Konzept welches es zum Beispiel erlaubt, dass der Typ eines Übergabeparameters einer Funktion nicht etwas explizit in der Implementierung der Funktion definiert werden muss. Stattdessen wird die Typisierung einen Eingabeparameters an der Stelle vorgenommen, an der die Funktion im Code aufgerufen wird. \autocite{rust-the-book}\autocite{rust-by-example} Dies ermöglicht es einer Funktion nahezu alle möglichen beliebigen Datentypen übergeben zu bekommen und ist vergleichbar mit der Eigenschaft der Polymorphie in objektorientierten Sprachen. 
+Generische Typen stellen eine einfache aber dennoch bedeutsame weitere Besonderheit im Typsystem von Rust dar. Dabei handelt es sich um ein Konzept welches es zum Beispiel erlaubt, dass der Typ eines Übergabeparameters einer Funktion nicht etwas explizit in der Implementierung der Funktion definiert werden muss. Stattdessen wird die Typisierung einen Eingabeparameters an der Stelle vorgenommen, an der die Funktion im Code aufgerufen wird. \autocite{rust-the-book}\autocite{rust-by-example} Dies ermöglicht es einer Funktion nahezu alle möglichen beliebigen Datentypen übergeben zu bekommen und ist vergleichbar mit der Eigenschaft der Polymorphie in objektorientierten Sprachen.
 
 \section{Ownership}
 
@@ -59,7 +59,7 @@ Bei diesem Beispiel wird zunächst der variablen \textit{s1} der Wert \textit{he
 
 Zum einen könnte die Zuweisung bedeuten, dass der Wert der Variablen \textit{s1} der Variablen \textit{s2} zugewiesen werden soll, sodass also beide Variablen den Wert \textit{hello} beinhalten. Das bedeutet, dass \textit{s2} eine Kopie von \textit{s1} wäre und einen eigenen Speicherbereich hätte, sodass der String \textit{hello} nach der Zuweisung zwei Mal im Speicher stehen würde. Zum anderen könnte die Zuweisung bedeuten, dass \textit{s2} auf dieselbe Adresse im Speicher verweist wodurch \textit{s1} und \textit{s2} nun auf denselben Wert im Speicher zeigen würden.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
 
-Für dieses Problem stehen zwei Lösungen zur Verfügung. Sofern \textit{s2} als exakte Kopie, mit eigenem Speicherbereich, des Wertes der Variablen \textit{s1} angelegt werden soll, so kann dies mit der folgenden Zuweisung erfolgen: \textit{let s2 = s1.clone()}.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
+Für dieses Problem stehen zwei Lösungen zur Verfügung. Sofern \textit{s2} als exakte Kopie, mit eigenem Speicherbereich, des Wertes der Variablen \textit{s1} angelegt werden soll, so kann dies mit der folgenden Zuweisung erfolgen: \mintinline{rust}{let s2 = s1.clone()}.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
 
 Wenn allerding \textit{s2} auf denselben Speicherbereich wie \textit{s1} zeigen soll, so ist dies mit Ownership möglich. Dabei muss allerdings beachtet werden, dass ein Wert nur einen Owner haben kann, was im Beispiel in Quelltext \ref{lst:wrong-code} bedeutet, dass \textit{s1} Owner des Wertes \textit{hello} ist. Die korrekte Zuweisung würde wie in Quelltext \ref{lst:correct-code} dargestellt erfolgen. Dabei wird der Variablen \textit{s1} der Wert \textit{hello} als veränderbar (mutable) zugewiesen. Anschließend wird \textit{s2} als veränderbare Referenz von \textit{s1} deklariert, was in Rust \textit{"Borrow"} (Borgen/Leihen) genannt wird. Die Idee dahinter ist, dass sich \textit{s2} den Wert von \textit{s1} für die Bearbeitung ausleiht und anschließend wieder freigibt. Konkret kann \textit{s2} Veränderungen an dem referenzierten Wert mit der Funktion \textit{s2.push()} vornehmen.
 
@@ -75,4 +75,4 @@ Wenn allerding \textit{s2} auf denselben Speicherbereich wie \textit{s1} zeigen 
 \begin{lstlisting}[caption={Korrekte Zuweisung von Werten \\Quelle: \autocite{rust-ownership}}, label={lst:correct-code}]
 \end{lstlisting}
 
-Anzumerken ist allerdings, dass über \textit{s1} keine Änderungen an dem Wert vorgenommen werden können oder der Wert genutzt werden kann, solange \textit{s2} sich diesen Wert ausgeliehen hat. Damit \textit{s1} wieder mit dem Wert arbeiten kann, kann \textit{s2} z.B. explizit die Anweisung \textit{s2.drop()} nutzen um den Wert wieder freizugeben.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
+Anzumerken ist allerdings, dass über \textit{s1} keine Änderungen an dem Wert vorgenommen werden können oder der Wert genutzt werden kann, solange \textit{s2} sich diesen Wert ausgeliehen hat. Damit \textit{s1} wieder mit dem Wert arbeiten kann, kann \textit{s2} z.B. explizit die Anweisung \mintinline{rust}{s2.drop()} nutzen um den Wert wieder freizugeben.\autocite{rust-ownership}\autocite{rust-the-book}\autocite{rust-by-example}
