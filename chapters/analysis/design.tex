@@ -1,13 +1,12 @@
 \newenvironment{code}{\captionsetup{type=listing}}{}
 \chapter{Design}
-Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich vier ausgewählte Bestandteile des Designs von Rust vorgestellt.
-
+Zum Design einer Programmiersprache gehören im Allgemeinen viele verschiedene Elemente und Konzepte die dazu beitragen, dass eine Programmiersprache sicher und zuverlässig ist. Aufgrund des erheblichen Umfangs der Elemente und Konzepte und deren Feinheiten, werden in diesem Kapitel lediglich drei ausgewählte Bestandteile des Designs von Rust vorgestellt. 
 \section{Syntax}
-Rust ist syntaktische ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. \autocite{rust-the-book}
+Rust ist syntaktisch ähnlich zu der Programmiersprache C. Konkret ermöglicht die Syntax von Rust sowohl die einfache Lesbarkeit des Codes, als auch das ausschließen von grundlegenden Formatierungsfehlern. \autocite{rust-the-book}
 
 Im Endeffekt bedeutet dies, dass der Code aus Blöcken besteht, welche mit geschweiften Klammern begonnen und beendet werden. Dies gilt jedoch nicht für die Bedingungen von Schleifen wie zum Beispiel \textit{while} oder \textit{for} sehr wohl aber für deren Schleifeninhalt. Die einzelnen Anweisungen werden dabei stets mit einem Semikolon voneinander getrennt.  \autocite{rust-the-book}\autocite{rust-by-example}\autocite{rust-wiki}
 
-Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden daher intern als "safe" gelistet. Allerdings bietet Rust auch die Möglichkeit für den Entwickler sich von der Sicherheit wegzubewegen und bewusst Code zu schreiben, welcher nach Rust-Kriterien als unsicher klassifiziert wird. Dafür muss allerdings der entsprechende Codeabschnitt im Code explizit in einem Rahmen mit dem Schlüsselwort "unsafe" angegeben werden.\autocite{rust-the-book}\autocite{rust-by-example}\autocite{rust-wiki}
+Viele der syntaktischen Merkmale von Rust sind von Grund auf sicher und werden daher intern als \textit{safe} gelistet. Allerdings bietet Rust auch die Möglichkeit für den Entwickler sich von der Sicherheit wegzubewegen und bewusst Code zu schreiben, welcher nach Rust-Kriterien als unsicher klassifiziert wird. Dafür muss allerdings der entsprechende Codeabschnitt im Code explizit in einem Rahmen mit dem Schlüsselwort \textit{unsafe} angegeben werden.\autocite{rust-the-book}\autocite{rust-by-example}\autocite{rust-wiki}
 
 \section{Typsystem}
 \subsection{Benutzerdefinierte Typen}
